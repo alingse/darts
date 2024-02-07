@@ -10,7 +10,7 @@ const END_NODE_BASE = -1
 const ROOT_NODE_BASE = 1
 const ROOT_NODE_INDEX = 0
 
-//Linked List Trie
+// Linked List Trie
 type LinkedListTrieNode struct {
 	Code                            rune
 	Depth, Left, Right, Index, Base int
@@ -22,7 +22,7 @@ type LinkedListTrie struct {
 	Root *LinkedListTrieNode
 }
 
-//Double Array Trie
+// Double Array Trie
 type DoubleArrayTrie struct {
 	Base  []int
 	Check []int
@@ -65,8 +65,6 @@ func (k dartsKeySlice) Less(i, j int) bool {
 		}
 		pos++
 	}
-
-	return false
 }
 
 func (k dartsKeySlice) Swap(i, j int) {
@@ -104,6 +102,7 @@ func (d *Darts) Build(keywords [][]rune) (*DoubleArrayTrie, *LinkedListTrie, err
 	d.dat = new(DoubleArrayTrie)
 	d.resize(RESIZE_DELTA)
 
+	d.key = make(dartsKeySlice, 0, len(keywords))
 	for _, keyword := range keywords {
 		var dk dartsKey = keyword
 		d.key = append(d.key, dk)
@@ -137,6 +136,7 @@ func (d *Darts) Build(keywords [][]rune) (*DoubleArrayTrie, *LinkedListTrie, err
 		return nil, nil, err
 	}
 
+	d.key = nil
 	return d.dat, d.llt, nil
 }
 
